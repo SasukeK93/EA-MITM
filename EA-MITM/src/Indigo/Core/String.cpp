@@ -29,11 +29,7 @@
 #include <ctype.h>
 
 namespace indigo {
-	bool String::Equals(std::string str1, std::string str2) {
-		return strcmp(str1.c_str(), str2.c_str()) == 0;
-	}
-
-	bool String::Contains(std::string target, std::string contains) {
+	bool String::Contains(std::string &target, std::string contains) {
 		return strstr(target.c_str(), contains.c_str()) != nullptr;
 	}
 
@@ -51,7 +47,7 @@ namespace indigo {
 		return output;
 	}
 
-	std::string String::PadLeft(std::string target, char character, int32_t count) {
+	std::string String::PadLeft(std::string &target, char character, int32_t count) {
 		std::string output;
 
 		int32_t length_to_add = count - target.size();
@@ -61,7 +57,7 @@ namespace indigo {
 		return output;
 	}
 
-	std::string String::PadRight(std::string target, char character, int32_t count) {
+	std::string String::PadRight(std::string &target, char character, int32_t count) {
 		std::string output = target;
 
 		int32_t length_to_add = count - target.size();
@@ -70,7 +66,7 @@ namespace indigo {
 		return output;
 	}
 
-	std::string String::Replace(std::string source, std::string from, std::string to, bool ignore_case) {
+	std::string String::Replace(std::string &source, std::string from, std::string to, bool ignore_case) {
 		std::string output = source;
 
 		for (size_t x = 0; x < output.size(); x++) {
@@ -98,7 +94,7 @@ namespace indigo {
 		return output;
 	}
 
-	std::vector<std::string> String::Split(std::string source, std::string split) {
+	std::vector<std::string> String::Split(std::string &source, std::string split) {
 		std::string input = source;
 		std::vector<std::string> output;
 
@@ -113,7 +109,7 @@ namespace indigo {
 		return output;
 	}
 
-	std::wstring String::ToWideString(std::string string) {
+	std::wstring String::ToWideString(std::string &string) {
 		std::wstring w_string;
 		w_string.resize(string.size() + 1);
 
@@ -123,7 +119,7 @@ namespace indigo {
 		return w_string;
 	}
 
-	std::string String::ToString(std::wstring string) {
+	std::string String::ToString(std::wstring &string) {
 		std::string c_string;
 		c_string.resize(string.size());
 

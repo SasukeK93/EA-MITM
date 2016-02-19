@@ -37,16 +37,15 @@
 namespace indigo {
 	class String {
 	public:
-		static bool Equals(std::string str1, std::string str2);
-		static bool Contains(std::string target, std::string contains);
+		static bool Contains(std::string &target, std::string contains);
 		static std::string Format(std::string format, ...);
-		static std::string PadLeft(std::string target, char character, int32_t count);
-		static std::string PadRight(std::string target, char character, int32_t count);
-		static std::string Replace(std::string source, std::string from, std::string to, bool ignore_case = false);
-		static std::vector<std::string> Split(std::string source, std::string split);
+		static std::string PadLeft(std::string &target, char character, int32_t count);
+		static std::string PadRight(std::string &target, char character, int32_t count);
+		static std::string Replace(std::string &source, std::string from, std::string to, bool ignore_case = false);
+		static std::vector<std::string> Split(std::string &source, std::string split);
 
-		static std::wstring ToWideString(std::string string);
-		static std::string ToString(std::wstring string);
+		static std::wstring ToWideString(std::string &string);
+		static std::string ToString(std::wstring &string);
 	};
 }
 
