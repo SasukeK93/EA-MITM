@@ -23,8 +23,8 @@
 *
 */
 
-#ifndef VENICE_ONLINE_H_
-#define VENICE_ONLINE_H_
+#ifndef EA_MITM_H_
+#define EA_MITM_H_
 
 // Program information
 #define PRG_NAME "EA-MITM"
@@ -43,4 +43,4 @@ namespace base {
 	};
 }
 
-#endif // VENICE_ONLINE_H_
+#endif // EA_MITM_H_
