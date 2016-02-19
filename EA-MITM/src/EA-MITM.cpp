@@ -1,7 +1,7 @@
 /*
 *
 *   Title: EA-MITM
-*   Authors: Baggie [http://gitlab.com/Baggie],
+*   Authors: Baggie [http://bitbucket.com/Bag123],
 *   Date: 2/17/2016
 *
 *   Copyright (C) 2016 Baggie. All Rights Reserved.
