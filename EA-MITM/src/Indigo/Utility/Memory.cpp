@@ -72,8 +72,7 @@ namespace indigo {
 
 			if (strcmp(byte_string, "??") == 0) {
 				mask.append("?");
-			}
-			else {
+			} else {
 				mask.append("x");
 			}
 		}

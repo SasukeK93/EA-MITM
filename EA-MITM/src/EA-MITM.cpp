@@ -80,8 +80,7 @@ namespace base {
 		}
 
 		// Write configuration to log
-		Log->Write(indigo::kLogType_Debug, "Global", "Copyright (C) 2016 Indigo Games. All Rights Reserved.");
-		Log->Write(indigo::kLogType_Debug, "Global", "Website: http://www.igonline.eu");
+		Log->Write(indigo::kLogType_Debug, "Global", "Copyright (C) 2016 Baggie. All Rights Reserved.");
 		Log->Write(indigo::kLogType_Debug, "Global", PRG_NAME " starting up...");
 
 		if (!ea::ProtoSSL::Initialize()) {
