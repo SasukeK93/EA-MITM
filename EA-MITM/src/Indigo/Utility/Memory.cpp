@@ -60,7 +60,7 @@ namespace indigo {
 
 	DWORD Memory::FindPattern(DWORD start_address, DWORD search_length, const char *pattern) {
 		// Generate pattern
-		std::vector<std::string> split_pattern = String::Split(pattern, " ");
+		std::vector<std::string> split_pattern = String::Split(std::string(pattern), " ");
 		std::string mask;
 		uint8_t *clean_pattern = new uint8_t[split_pattern.size()];
 		for (size_t i = 0; i < split_pattern.size(); i++) {
