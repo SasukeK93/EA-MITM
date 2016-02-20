@@ -40,6 +40,16 @@ namespace ea {
 	std::mutex ProtoSSL::connections_mutex_;
 
 	bool ProtoSSL::Initialize() {
+		if (WSAStartup(MAKEWORD(2, 2), &wsa_data_) != 0) {
+			return false;
+		}
+
+		std::string file_name = indigo::String::Format(EA_PROTO_SSL_FILE_NAME "_%i.acp", time(nullptr));
+		if (!dump_.Open(EA_PROTO_SSL_FILE_NAME)) {
+			base::EA_MITM::Log->Write(indigo::kLogType_Error, "EA::ProtoSSL", "Failed to open " EA_PROTO_SSL_FILE_NAME);
+			return false;
+		}
+
 		void *protossl_connect = (void *)base::EA_MITM::Config->GetInteger("ProtoSSL", "Connect");
 		void *protossl_send = (void *)base::EA_MITM::Config->GetInteger("ProtoSSL", "Send");
 		void *protossl_recv = (void *)base::EA_MITM::Config->GetInteger("ProtoSSL", "Recv");
@@ -54,15 +64,6 @@ namespace ea {
 		}
 		if (protossl_recv == nullptr || !indigo::Hook::InstallHook(protossl_recv, &mRecv, &pRecv)) {
 			base::EA_MITM::Log->Write(indigo::kLogType_Error, "EA::ProtoSSL", "Failed to hook ProtoSSLRecv");
-			return false;
-		}
-
-		if (WSAStartup(MAKEWORD(2, 2), &wsa_data_) != 0) {
-			return false;
-		}
-
-		if (!dump_.Open(EA_PROTO_SSL_FILE_NAME)) {
-			base::EA_MITM::Log->Write(indigo::kLogType_Error, "EA::ProtoSSL", "Failed to open " EA_PROTO_SSL_FILE_NAME);
 			return false;
 		}
 
@@ -95,7 +96,7 @@ namespace ea {
 		connection.State = state;
 		connection.LocalEndpoint.AddressString = "127.0.0.1";
 		connection.LocalEndpoint.Address = inet_addr("127.0.0.1");
-		connection.LocalEndpoint.Port = (uint16_t)state;
+		connection.LocalEndpoint.Port = htons((uint16_t)state);
 
 		// Get remote address info
 		addrinfo *result = nullptr;
@@ -128,11 +129,12 @@ namespace ea {
 		} 
 		
 		if (return_value != 0) {
-			base::EA_MITM::Log->Write(indigo::kLogType_Error, "EA::ProtoSSL", "Failed to get address information for %s:%i", 
-				address_string, port);
+			base::EA_MITM::Log->Write(indigo::kLogType_Error, "EA::ProtoSSL", 
+				"Connect: [%i] Failed to get address information for %s:%i. This connection will not be monitored.", 
+				connection.ID, address_string, port);
 		} else {
 			base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", 
-				"ProtoSSLConnect: [%i] Connecting to %s:%i (Host Address: %s, SSL Enabled: %s)", connection.ID, address_string, 
+				"Connect: [%i] Connecting to %s:%i... (Host Address: %s, SSL Enabled: %s)", connection.ID, address_string, 
 				port, connection.RemoteEndpoint.AddressString.c_str(), secure ? "True" : "False");
 		}
 
@@ -147,7 +149,7 @@ namespace ea {
 				dump_.Write(SOCK_STREAM, IPPROTO_TCP, connection.LocalEndpoint.Address, connection.LocalEndpoint.Port,
 					connection.RemoteEndpoint.Address, connection.RemoteEndpoint.Port, const_cast<char *>(buffer), length);
 
-				base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", "ProtoSSLSend: [%i] Sent %i bytes to %s:%i", 
+				base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", "Send: [%i] Sent %i bytes to %s:%i", 
 					connection.ID, length, connection.RemoteEndpoint.AddressString.c_str(), connection.RemoteEndpoint.Port);
 			}
 			connections_mutex_.unlock();			
@@ -167,7 +169,7 @@ namespace ea {
 					connection.LocalEndpoint.Address, connection.LocalEndpoint.Port, const_cast<char *>(buffer), length);
 
 				base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", 
-					"ProtoSSLRecv: [%i] Received %i bytes from %s:%i", connection.ID, length, 
+					"Recv: [%i] Received %i bytes from %s:%i", connection.ID, length, 
 					connection.RemoteEndpoint.AddressString.c_str(), connection.RemoteEndpoint.Port);
 			}
 			connections_mutex_.unlock();

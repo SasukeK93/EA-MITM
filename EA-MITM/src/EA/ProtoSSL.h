@@ -27,7 +27,7 @@
 #define EA_PROTO_SSL_H_
 
 #ifndef EA_PROTO_SSL_FILE_NAME
-#define EA_PROTO_SSL_FILE_NAME "protossl_dump.acp"
+#define EA_PROTO_SSL_FILE_NAME "protossl_dump"
 #endif
 
 #include "../Indigo/Utility/ACPDump.h"
