@@ -6,7 +6,6 @@
     <ClCompile Include="src\Indigo\IO\CommandLine.cpp" />
     <ClCompile Include="src\Indigo\IO\Console.cpp" />
     <ClCompile Include="src\Indigo\IO\MessageBox.cpp" />
-    <ClCompile Include="src\Indigo\Utility\Functions.cpp" />
     <ClCompile Include="src\Indigo\Utility\Hook.cpp" />
     <ClCompile Include="src\Indigo\Utility\Log.cpp" />
     <ClCompile Include="src\Indigo\Utility\Memory.cpp" />
@@ -23,7 +22,6 @@
     <ClInclude Include="src\Indigo\IO\Console.h" />
     <ClInclude Include="src\Indigo\IO\MessageBox.h" />
     <ClInclude Include="src\Indigo\Utility\Config.h" />
-    <ClInclude Include="src\Indigo\Utility\Functions.h" />
     <ClInclude Include="src\Indigo\Utility\Hook.h" />
     <ClInclude Include="src\Indigo\Utility\Log.h" />
     <ClInclude Include="src\Indigo\Utility\Memory.h" />

@@ -29,6 +29,8 @@
 #include "../Indigo/Utility/Hook.h"
 #include <WS2tcpip.h>
 
+#pragma comment(lib, "ws2_32.lib")
+
 namespace ea {
 	ProtoSSL::tConnect ProtoSSL::pConnect;
 	ProtoSSL::tSend ProtoSSL::pSend;
