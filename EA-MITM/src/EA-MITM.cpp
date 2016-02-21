@@ -129,6 +129,19 @@ extern "C" void __stdcall mInitCommonControls() {
 	return pInitCommonControls();
 }
 
+// Direct3D9 exports (d3d9.dll)
+#include <d3d9.h>
+#pragma comment(lib, "d3d9.lib")
+extern "C" IDirect3D9 *__stdcall mDirect3DCreate9(UINT sdk_version) {
+	typedef IDirect3D9 *(__stdcall *tDirect3DCreate9)(UINT);
+	static tDirect3DCreate9 pDirect3DCreate9 = (tDirect3DCreate9)indigo::Memory::GetDllExport("Direct3DCreate9", "d3d9.dll", true);
+	if (pDirect3DCreate9 == nullptr) {
+		return nullptr;
+	}
+
+	return pDirect3DCreate9(sdk_version);
+}
+
 // DirectInput exports (dinput8.dll)
 #include <dinput.h>
 #pragma comment(lib, "dinput8.lib")
