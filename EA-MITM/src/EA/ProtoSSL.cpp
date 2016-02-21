@@ -117,7 +117,7 @@ namespace ea {
 					sockaddr_in *endpoint_info = (sockaddr_in *)ptr->ai_addr;
 					connection.RemoteEndpoint.AddressString = inet_ntoa(endpoint_info->sin_addr);
 					connection.RemoteEndpoint.Address = endpoint_info->sin_addr.S_un.S_addr;
-					connection.RemoteEndpoint.Port = port;
+					connection.RemoteEndpoint.Port = htons(port);
 
 					connections_mutex_.lock();
 					connection.ID = connections_.size();
@@ -131,8 +131,8 @@ namespace ea {
 		} else if (strcmp(address_string, "fesl.ea.com") == 0 && return_value == HOST_NOT_FOUND) {
 			// FESL patch
 			connection.RemoteEndpoint.AddressString = address_string;
-			connection.RemoteEndpoint.Address = address;
-			connection.RemoteEndpoint.Port = port;
+			connection.RemoteEndpoint.Address = htonl(address);
+			connection.RemoteEndpoint.Port = htons(port);
 
 			connections_mutex_.lock();
 			connection.ID = connections_.size();
