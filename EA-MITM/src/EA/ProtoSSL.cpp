@@ -47,8 +47,8 @@ namespace ea {
 		}
 
 		std::string file_name = indigo::String::Format(EA_PROTO_SSL_FILE_NAME "_%i.acp", time(nullptr));
-		if (!dump_.Open(EA_PROTO_SSL_FILE_NAME)) {
-			base::EA_MITM::Log->Write(indigo::kLogType_Error, "EA::ProtoSSL", "Failed to open " EA_PROTO_SSL_FILE_NAME);
+		if (!dump_.Open(file_name)) {
+			base::EA_MITM::Log->Write(indigo::kLogType_Error, "EA::ProtoSSL", "Failed to open %s", file_name.c_str());
 			return false;
 		}
 
@@ -74,7 +74,7 @@ namespace ea {
 		base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", "\tConnect: 0x%08x", protossl_connect);
 		base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", "\tSend: 0x%08x", protossl_send);
 		base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", "\tRecv: 0x%08x", protossl_recv);
-		base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", "Dump file: " EA_PROTO_SSL_FILE_NAME);
+		base::EA_MITM::Log->Write(indigo::kLogType_Info, "EA::ProtoSSL", "Dump file: %s", file_name.c_str());
 
 		return true;
 	}
