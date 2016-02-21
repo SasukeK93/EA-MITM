@@ -1,3 +1,5 @@
 LIBRARY
 EXPORTS
 		DirectInput8Create = mDirectInput8Create
+		GetProcessImageFileNameW = mGetProcessImageFileNameW
+		GetModuleFileNameExW = mGetModuleFileNameExW

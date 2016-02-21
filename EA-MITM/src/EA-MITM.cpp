@@ -118,9 +118,9 @@ namespace base {
 	}
 }
 
-// DirectInput exports
+// DirectInput exports (dinput8.dll)
 #include <dinput.h>
-#pragma comment (lib, "dinput8.lib")
+#pragma comment(lib, "dinput8.lib")
 extern "C" HRESULT __stdcall mDirectInput8Create(HINSTANCE program_instance, DWORD version, REFIID rguid, IDirectInput8A **direct_input, LPUNKNOWN unknown) {
 	typedef HRESULT(__stdcall *tDirectInput8Create)(HINSTANCE, DWORD, REFIID, IDirectInput8A**, LPUNKNOWN);
 	tDirectInput8Create pDirectInput8Create = (tDirectInput8Create)indigo::Memory::GetDllExport("DirectInput8Create", "dinput8.dll", true);
@@ -129,6 +129,29 @@ extern "C" HRESULT __stdcall mDirectInput8Create(HINSTANCE program_instance, DWO
 	}
 
 	return pDirectInput8Create(program_instance, version, rguid, direct_input, unknown);
+}
+
+// PSAPI exports (psapi.dll)
+#include <Psapi.h>
+#pragma comment(lib, "psapi.lib")
+extern "C" DWORD __stdcall mGetProcessImageFileNameW(HANDLE process, LPWSTR image_file_name, DWORD size) {
+	typedef DWORD(__stdcall *tGetProcessImageFileNameW)(HANDLE, LPWSTR, DWORD);
+	tGetProcessImageFileNameW pGetProcessImageFileNameW = (tGetProcessImageFileNameW)indigo::Memory::GetDllExport("GetProcessImageFileNameW", "psapi.dll", true);
+	if (pGetProcessImageFileNameW == nullptr) {
+		return E_FAIL;
+	}
+
+	return pGetProcessImageFileNameW(process, image_file_name, size);
+}
+
+extern "C" DWORD __stdcall mGetModuleFileNameExW(HANDLE process, HMODULE module, LPWSTR file_name, DWORD size) {
+	typedef DWORD(__stdcall *tGetModuleFileNameExW)(HANDLE, HMODULE, LPWSTR, DWORD);
+	tGetModuleFileNameExW pGetModuleFileNameExW = (tGetModuleFileNameExW)indigo::Memory::GetDllExport("GetModuleFileNameExW", "psapi.dll", true);
+	if (pGetModuleFileNameExW == nullptr) {
+		return E_FAIL;
+	}
+
+	return pGetModuleFileNameExW(process, module, file_name, size);
 }
 
 BOOL WINAPI DllMain(HINSTANCE program_instance, DWORD reason, LPVOID reserved) {
