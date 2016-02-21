@@ -128,7 +128,19 @@ namespace ea {
 					break;
 				}
 			}
-		} 
+		} else if (strcmp(address_string, "fesl.ea.com") == 0 && return_value == HOST_NOT_FOUND) {
+			// FESL patch
+			connection.RemoteEndpoint.AddressString = address_string;
+			connection.RemoteEndpoint.Address = address;
+			connection.RemoteEndpoint.Port = port;
+
+			connections_mutex_.lock();
+			connection.ID = connections_.size();
+			connections_[state] = connection;
+			connections_mutex_.unlock();
+
+			return_value = S_OK;
+		}
 		
 		if (return_value != 0) {
 			base::EA_MITM::Log->Write(indigo::kLogType_Error, "EA::ProtoSSL", 
