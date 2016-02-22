@@ -130,10 +130,8 @@ extern "C" void __stdcall mInitCommonControls() {
 }
 
 // Direct3D9 exports (d3d9.dll)
-#include <d3d9.h>
-#pragma comment(lib, "d3d9.lib")
-extern "C" IDirect3D9 *__stdcall mDirect3DCreate9(UINT sdk_version) {
-	typedef IDirect3D9 *(__stdcall *tDirect3DCreate9)(UINT);
+extern "C" void *__stdcall mDirect3DCreate9(UINT sdk_version) {
+	typedef void *(__stdcall *tDirect3DCreate9)(UINT);
 	static tDirect3DCreate9 pDirect3DCreate9 = (tDirect3DCreate9)indigo::Memory::GetDllExport("Direct3DCreate9", "d3d9.dll", true);
 	if (pDirect3DCreate9 == nullptr) {
 		return nullptr;
@@ -143,10 +141,8 @@ extern "C" IDirect3D9 *__stdcall mDirect3DCreate9(UINT sdk_version) {
 }
 
 // DirectInput exports (dinput8.dll)
-#include <dinput.h>
-#pragma comment(lib, "dinput8.lib")
-extern "C" HRESULT __stdcall mDirectInput8Create(HINSTANCE program_instance, DWORD version, REFIID rguid, IDirectInput8A **direct_input, LPUNKNOWN unknown) {
-	typedef HRESULT(__stdcall *tDirectInput8Create)(HINSTANCE, DWORD, REFIID, IDirectInput8A**, LPUNKNOWN);
+extern "C" HRESULT __stdcall mDirectInput8Create(HINSTANCE program_instance, DWORD version, REFIID rguid, void **direct_input, void *unknown) {
+	typedef HRESULT(__stdcall *tDirectInput8Create)(HINSTANCE, DWORD, REFIID, void**, void *);
 	static tDirectInput8Create pDirectInput8Create = (tDirectInput8Create)indigo::Memory::GetDllExport("DirectInput8Create", "dinput8.dll", true);
 	if (pDirectInput8Create == nullptr) {
 		return E_FAIL;
