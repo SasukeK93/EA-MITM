@@ -196,9 +196,7 @@
   <ItemGroup>
     <ClCompile Include="src\EA\ProtoSSL.cpp" />
     <ClCompile Include="src\Indigo\Utility\ACPDump.cpp" />
-    <ClCompile Include="src\Indigo\Utility\DLL.cpp" />
     <ClCompile Include="src\EA-MITM.cpp" />
-    <ClCompile Include="src\Indigo\Core\Handle.cpp" />
     <ClCompile Include="src\Indigo\Core\String.cpp" />
     <ClCompile Include="src\Indigo\IO\CommandLine.cpp" />
     <ClCompile Include="src\Indigo\IO\Console.cpp" />
@@ -211,9 +209,7 @@
   <ItemGroup>
     <ClInclude Include="src\EA\ProtoSSL.h" />
     <ClInclude Include="src\Indigo\Utility\ACPDump.h" />
-    <ClInclude Include="src\Indigo\Utility\DLL.h" />
     <ClInclude Include="src\EA-MITM.h" />
-    <ClInclude Include="src\Indigo\Core\Handle.h" />
     <ClInclude Include="src\Indigo\Core\String.h" />
     <ClInclude Include="src\Indigo\IO\CommandLine.h" />
     <ClInclude Include="src\Indigo\IO\Console.h" />

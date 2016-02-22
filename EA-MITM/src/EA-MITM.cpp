@@ -30,7 +30,6 @@
 #include "Indigo/IO/CommandLine.h"
 #include "Indigo/IO/MessageBox.h"
 #include "Indigo/Utility/Memory.h"
-#include "Indigo/Utility/DLL.h"
 
 namespace base {
 	indigo::Config *EA_MITM::Config;
@@ -174,9 +173,9 @@ extern "C" DWORD __stdcall mGetModuleFileNameExW(HANDLE process, HMODULE module,
 
 BOOL WINAPI DllMain(HINSTANCE program_instance, DWORD reason, LPVOID reserved) {
 	if (reason == DLL_PROCESS_ATTACH) {
-		indigo::DLL::Initialize(base::EA_MITM::Initialize, base::EA_MITM::Shutdown);
+		base::EA_MITM::Initialize();
 	} else if (reason == DLL_PROCESS_DETACH) {
-		indigo::DLL::Shutdown();
+		base::EA_MITM::Shutdown();
 	}
 
 	return TRUE;

@@ -75,7 +75,6 @@ namespace indigo {
 			return false;
 		}
 
-		mutex_.lock();
 		file_.open(file_name_, std::ios_base::app);
 		if (!file_.is_open()) {
 			return false;
@@ -144,8 +143,6 @@ namespace indigo {
 
 		file_.flush();
 
-		mutex_.unlock();
-
 		return true;
 	}
 
@@ -154,14 +151,10 @@ namespace indigo {
 			return;
 		}
 
-		mutex_.lock();
-
 		is_open_ = false;
 		thread_.join();
 
 		file_.close();
-
-		mutex_.unlock();
 	}
 
 	void Log::Write(LogType log_type, std::string class_name, std::string format, ...) {
