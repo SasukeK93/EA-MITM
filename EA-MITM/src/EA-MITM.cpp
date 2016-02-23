@@ -82,6 +82,9 @@ namespace base {
 		Log->Write(indigo::kLogType_Debug, "Global", "Copyright (C) 2016 Baggie. All Rights Reserved.");
 		Log->Write(indigo::kLogType_Debug, "Global", PRG_NAME " starting up...");
 
+		// Sleep for the amount specified in the configuration
+		Sleep(Config->GetInteger("Hook", "InitDelay"));
+
 		if (!ea::ProtoSSL::Initialize()) {
 			indigo::MessageBox::Show(indigo::kMessageBoxType_Error, PRG_NAME " - Error", "Failed to initialize ProtoSSL!");
 			ExitProcess(-1);
