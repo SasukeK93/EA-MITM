@@ -173,9 +173,9 @@ extern "C" DWORD __stdcall mGetModuleFileNameExW(HANDLE process, HMODULE module,
 
 BOOL WINAPI DllMain(HINSTANCE program_instance, DWORD reason, LPVOID reserved) {
 	if (reason == DLL_PROCESS_ATTACH) {
-		base::EA_MITM::Initialize();
+		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)base::EA_MITM::Initialize, NULL, NULL, NULL);
 	} else if (reason == DLL_PROCESS_DETACH) {
-		base::EA_MITM::Shutdown();
+		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)base::EA_MITM::Shutdown, NULL, NULL, NULL);
 	}
 
 	return TRUE;
