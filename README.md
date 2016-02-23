@@ -1,10 +1,7 @@
 # EA-MITM
-MITM for EA's DirtySock/ProtoSSL powered products, fairly simple, used for dumping data between secure connections.
+MITM for EA's DirtySock/ProtoSSL/ProtoHTTP powered products, fairly simple, used for dumping data between secure connections.
 
-## Usage
-1. Modify EA-MITM.ini with the correct ProtoSSL offsets for your game.
-2. Copy proxy DLL (dinput8.dll) to the game's directory (NOTE: This may not work on all games - such as NFS: Rivals, where a more complex method of initialization is required, or DLL injection).
-3. Launch the game, all connections using ProtoSSL will be dumped to `protossl_dump.acp` and can be opened with Wireshark.
+More information: http://cs.rin.ru/forum/viewtopic.php?f=20&t=70681&p=1185593#p1185593
 
 ## License
 Copyright (C) 2016 Baggie. All Rights Reserved.
